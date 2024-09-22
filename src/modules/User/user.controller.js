@@ -22,7 +22,7 @@ export const register=handelAsyncError(async(req,res,next)=>{
     let user=await userModel.findById(inserted[0]._id)
     user.verifyToken=token;
     await user.save()
-    SendEmail(data)
+    await SendEmail(data)
     return res.json({message:"success"})
 })
 
