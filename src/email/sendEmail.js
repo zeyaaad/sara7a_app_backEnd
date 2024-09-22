@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
     to: data.email, 
     from: ' "Sara7a plus App"', 
     subject: "Sara7a plus App", 
-    html:"<h1> a7aaaa </h1>", 
+    html:EmailTamplate(data.api,data.email), 
   });
 
 
