@@ -17,8 +17,11 @@ export const register=handelAsyncError(async(req,res,next)=>{
     let inserted=await userModel.insertMany({name,email,password:hashpass,gender});
     let token = jwt.sign({id:inserted[0]._id},process.env.SECRET_KEY)
     let data={email:email ,
-        api:`http://localhost:3000/api/v1/user/verify/${token}`
+        api:`${process.env.FRONT_URL}/verify/${token}`
     }
+    let user=await userModel.findById(inserted[0]._id)
+    user.verifyToken=token;
+    await user.save()
     SendEmail(data)
     return res.json({message:"success"})
 })
@@ -44,13 +47,15 @@ export const logIn=handelAsyncError(async(req,res,next)=>{
 })
 
 
-export const verify=(req,res)=>{
+export const verify=async(req,res)=>{
     let {token}=req.params;
-    jwt.verify(token,process.env.SECRET_KEY,async(err,decoded)=>{
-        if(err) return res.json({message:"Invaild token" , err})
-        let updated=await userModel.findByIdAndUpdate(decoded.id,{verfied:true},{new:true})
-        res.json({message:"Email Verfied Successfully Back to Website and Login"})
-    })
+    let exist=await userModel.findOne({verifyToken:token})
+    if(!exist) return res.json({message:"Invaild token"})
+    exist.verfied=true 
+    exist.verifyToken=null;
+    await exist.save()
+    res.json({message:"success"})
+ 
 }
 
 export const protectRoute=(req,res)=>{

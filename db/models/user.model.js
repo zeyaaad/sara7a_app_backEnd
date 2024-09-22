@@ -21,6 +21,7 @@ const userSchema= new mongoose.Schema({
   },
   resetToken:String,
   resetTokenExpiration:Date,
+  verifyToken:String,
   type:{
      type: String,
     enum: ['user', 'pro'],

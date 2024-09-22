@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { EmailTamplate } from './EmailTamplate.js';
 
 
-export async function  SendEmail(data){
+export async function SendEmail(data){
 
 
 const transporter = nodemailer.createTransport({

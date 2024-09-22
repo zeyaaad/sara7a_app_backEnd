@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import { NotiTemplate } from "./NotiTemplate.js";
 import { replayTamplate } from "./replayTamplate.js";
 
 
