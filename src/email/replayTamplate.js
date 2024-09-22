@@ -58,7 +58,7 @@ export function replayTamplate(message){
     <p>Hello,</p>
     <p> ${message}  </p> 
 
-    <a <a href="${process.env.FRONT_URL}/message" class="reset-link"> Open sara7a App </a>
+    <a <a href="${process.env.FRONT_URL}/messages" class="reset-link"> Open sara7a App </a>
 
     
     <div class="footer">
